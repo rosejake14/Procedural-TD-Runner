@@ -30,14 +30,15 @@ AFloor::AFloor()
 void AFloor::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 	int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Entered"));
+	UE_LOG(LogTemp, Warning, TEXT("Level Up"));
 	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
 	if(Player)
 	{
 		if(Player->spawnyes == true){
 			Player->spawnyes = false;
 			if(ts){
-					UE_LOG(LogTemp, Warning, TEXT("The Actor's name is %s"), *OtherActor->GetName());
+					
+					UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *OtherActor->GetName());
 					ts->SpawnTile();
 			}
 			Player->moveSpeed += 1;
@@ -49,6 +50,7 @@ void AFloor::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 void AFloor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+	
 	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
 	if(Player)
 	{
@@ -57,15 +59,16 @@ void AFloor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 	}
 }
 
-void AFloor::OnObstacleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
-{
-	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
-	if(Player)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("LOOSE"));
-	}
-}
+ void AFloor::OnObstacleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+ 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
+ {
+ 	UE_LOG(LogTemp, Warning, TEXT("Hit Obstacle"));
+ 	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
+ 	if(Player)
+ 	{
+ 		UE_LOG(LogTemp, Warning, TEXT("LOOSE"));
+ 	}
+ }
 
 
 // Called when the game starts or when spawned
