@@ -29,7 +29,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void SpawnTile();
 
-	
+	UFUNCTION(BlueprintCallable)
+	static ATileSpawner* Get();
+
+private:
+	static TSharedPtr<ATileSpawner> STileSpawner;
 	
 protected:
 	// Called when the game starts or when spawned

@@ -12,6 +12,7 @@ ATileSpawner::ATileSpawner()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	numberOfTilesSpawned = 0;
+
 }
 
 // Called when the game starts or when spawned
@@ -38,8 +39,8 @@ void ATileSpawner::SpawnTile()
 		int32 rZ = 0;
 		if(numberOfTilesSpawned!=0)
 		{
-			 rX = rand()%600 - 300;
-			 rZ = rand()%800 - 400;
+			 rX = rand()%1000 - 500;
+			 rZ = rand()%400 - 200;
 		}
 		spawnPos.SetLocation(FVector3d(rX,numberOfTilesSpawned * 2600,rZ));
 		TSubclassOf<AActor> Ground = TilesToSpawn[rand()%TilesToSpawn.Num()];
@@ -51,3 +52,14 @@ void ATileSpawner::SpawnTile()
 	}
 	
 }
+
+// //singleton def
+// ATileSpawner* ATileSpawner::Get()
+// {
+// 	if(!STileSpawner.IsValid())
+// 	{
+// 		STileSpawner = MakeShareable(new ATileSpawner());
+// 	}
+//
+// 	return STileSpawner.Get();
+// }
