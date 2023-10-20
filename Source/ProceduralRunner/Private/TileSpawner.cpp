@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "ProceduralRunner\Public\TileSpawner.h"
-#include "Floor.h"
+#include "ProceduralRunner\Public\Floor.h"
 
 
 
@@ -36,7 +36,7 @@ void ATileSpawner::SpawnTile()
 		FTransform spawnPos;
 		spawnPos.SetLocation(FVector3d(0,numberOfTilesSpawned * 2600,0));
 		TSubclassOf<AActor> Ground = TilesToSpawn[rand()%TilesToSpawn.Num()];
-		AFloor* Temp = (AFloor*)GetWorld()->SpawnActor<AActor>(Ground, spawnPos, spawnParameters);
+		AFloor* Temp = static_cast<AFloor*>(GetWorld()->SpawnActor<AActor>(Ground, spawnPos, spawnParameters));
 		Temp->ts = this;
 		
 		SpawnedTiles.Add(Ground);

@@ -62,7 +62,7 @@ void AFloor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
  void AFloor::OnObstacleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
  	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
  {
- 	UE_LOG(LogTemp, Warning, TEXT("Hit Obstacle"));
+ 	UE_LOG(LogTemp, Warning, TEXT("HitObstacle"));
  	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
  	if(Player)
  	{
