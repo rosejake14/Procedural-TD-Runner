@@ -34,7 +34,14 @@ void ATileSpawner::SpawnTile()
 		FActorSpawnParameters spawnParameters;
 		spawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 		FTransform spawnPos;
-		spawnPos.SetLocation(FVector3d(0,numberOfTilesSpawned * 2600,0));
+		int32 rX = 0;
+		int32 rZ = 0;
+		if(numberOfTilesSpawned!=0)
+		{
+			 rX = rand()%600 - 300;
+			 rZ = rand()%800 - 400;
+		}
+		spawnPos.SetLocation(FVector3d(rX,numberOfTilesSpawned * 2600,rZ));
 		TSubclassOf<AActor> Ground = TilesToSpawn[rand()%TilesToSpawn.Num()];
 		AFloor* Temp = static_cast<AFloor*>(GetWorld()->SpawnActor<AActor>(Ground, spawnPos, spawnParameters));
 		Temp->ts = this;

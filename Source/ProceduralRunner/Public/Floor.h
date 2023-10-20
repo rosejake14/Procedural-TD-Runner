@@ -36,18 +36,18 @@ public:
 	ATileSpawner* ts;
 		
 	UFUNCTION()
-	virtual auto OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	virtual void OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	                          UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep,
-	                          const FHitResult& SweepResult) -> void;
+	                          const FHitResult& SweepResult);
 
 	UFUNCTION()
-	virtual auto OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
-	                             UPrimitiveComponent* OtherComp, int32 OtherBodyIndex) -> void;
+	virtual void OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	                             UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	UFUNCTION()
-	virtual auto OnObstacleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	virtual void OnObstacleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	                               UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep,
-	                               const FHitResult& SweepResult) -> void;
+	                               const FHitResult& SweepResult);
 
 	
 protected:
