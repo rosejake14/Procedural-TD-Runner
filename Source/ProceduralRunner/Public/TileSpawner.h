@@ -26,8 +26,6 @@ public:
 	ATileSpawner();
 	UFUNCTION(BlueprintCallable)
 		void SpawnTile();
-	UFUNCTION(BlueprintCallable)
-		void DestroyTile();
 	UPROPERTY(EditAnywhere)
 		TArray<TSubclassOf<AActor>> SpawnedTiles;
 	UPROPERTY(EditAnywhere)

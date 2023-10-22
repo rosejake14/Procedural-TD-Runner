@@ -38,28 +38,25 @@ void ATileSpawner::SpawnTile()
 		FTransform spawnPos;
 		int32 rX = 0;
 		int32 rZ = 0;
+		TSubclassOf<AActor> Ground = TilesToSpawn[0];
 		if(numberOfTilesSpawned!=0)
 		{
-			 rX = rand()%1000 - 500;
-			 rZ = rand()%400 - 200;
+			rX = rand()%1000 - 500;
+			rZ = rand()%400 - 200;
+			Ground = TilesToSpawn[rand()%TilesToSpawn.Num()];
 		}
 		spawnPos.SetLocation(FVector3d(rX,numberOfTilesSpawned * 2600,rZ));
-		TSubclassOf<AActor> Ground = TilesToSpawn[rand()%TilesToSpawn.Num()];
 		AFloor* Temp = static_cast<AFloor*>(GetWorld()->SpawnActor<AActor>(Ground, spawnPos, spawnParameters));
 		Temp->ts = this;
 
-		//AActor* Temp2 = (AActor*)(Temp);
 		SpawnedTiles.Add(Ground);
 		numberOfTilesSpawned++;
-		//DestroyTile();
+
 	}
 	
 }
 
-void ATileSpawner::DestroyTile()
-{
-	//Destroy(SpawnedTiles[numberOfTilesSpawned - 1]);
-}
+
 
 
 // //singleton def

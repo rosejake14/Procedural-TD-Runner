@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
 #include "ProceduralRunner/Public/TileSpawner.h"
+#include "Kismet/GameplayStatics.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
@@ -22,9 +23,10 @@ AProceduralRunnerCharacter::AProceduralRunnerCharacter()
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 
-spawnyes = true;
-	moveSpeed = 5;
+	spawnyes = true;
+	moveSpeed = 8;
 	Score = 0;
+	
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
@@ -36,8 +38,8 @@ spawnyes = true;
 
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
 	// instead of recompiling to adjust them
-	GetCharacterMovement()->JumpZVelocity = 1000.f;
-	GetCharacterMovement()->AirControl = 0.75f;
+	GetCharacterMovement()->JumpZVelocity = 850.f;
+	GetCharacterMovement()->AirControl = 1.75f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
 	GetCharacterMovement()->BrakingDecelerationWalking = 10000.f;
@@ -61,6 +63,10 @@ spawnyes = true;
 void AProceduralRunnerCharacter::AddScore(int score)
 {
 	Score += score;
+	// if(JumpSound)
+	// {
+	// 	UGameplayStatics::PlaySound2D(this,JumpSound);
+	// }
 }
 
 int AProceduralRunnerCharacter::GetScore()
@@ -93,13 +99,12 @@ void AProceduralRunnerCharacter::SetupPlayerInputComponent(UInputComponent* Play
 		
 		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
+		
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
 
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AProceduralRunnerCharacter::Move);
 
-		// Looking
-		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AProceduralRunnerCharacter::Look);
 	}
 	else
 	{
@@ -136,22 +141,7 @@ void AProceduralRunnerCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 	SetActorLocation(FVector(this->GetActorLocation().X , this->GetActorLocation().Y + moveSpeed, this->GetActorLocation().Z), false, 0, ETeleportType::None);
-	//if(static_cast<int32>(50 + this->GetActorLocation().Y) % 2600 == 0)
-	//{
 	
-	//}	
 }
 
 
-void AProceduralRunnerCharacter::Look(const FInputActionValue& Value)
-{
-	// input is a Vector2D
-	// FVector2D LookAxisVector = Value.Get<FVector2D>();
-	//
-	// if (Controller != nullptr)
-	// {
-	// 	// add yaw and pitch input to controller
-	// 	AddControllerYawInput(LookAxisVector.X);
-	// 	AddControllerPitchInput(LookAxisVector.Y);
-	// }
-}
