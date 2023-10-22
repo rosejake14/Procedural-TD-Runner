@@ -39,7 +39,11 @@ void AFloor::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 			Player->spawnyes = false;
 			if(ts){
 					//UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *OtherActor->GetName());
-					ts->SpawnTile(); 
+					ts->SpawnTile();
+					if(levelUpSound)
+					{
+						UGameplayStatics::PlaySound2D(this, levelUpSound);
+					}
 			}
 			Player->moveSpeed += 1;
 			Player->AddScore(1);
@@ -65,10 +69,20 @@ void AFloor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
  	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
  	if(Player)
  	{
- 		UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+ 		if(gameOver)
+ 		{
+ 			UGameplayStatics::PlaySound2D(this, gameOver);
+ 			Player->moveSpeed = -25;
+ 			GetWorldTimerManager().SetTimer(Handle, this, &AFloor::RestartLevel, 1.0f, true, 1.5f); //Start Timer for 1.5f seconds.
+ 		}
+ 		
  	}
  }
-
+void AFloor::RestartLevel()
+{
+	GetWorldTimerManager().ClearTimer(Handle);
+	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+}
 
 // Called when the game starts or when spawned
 void AFloor::BeginPlay()

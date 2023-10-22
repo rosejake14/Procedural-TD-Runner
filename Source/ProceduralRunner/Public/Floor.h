@@ -34,7 +34,13 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	ATileSpawner* ts;
-		
+	UPROPERTY(EditAnywhere)
+	USoundBase* levelUpSound;
+	UPROPERTY(EditAnywhere)
+	USoundBase* gameOver;
+
+	FTimerHandle Handle;
+	
 	UFUNCTION()
 	virtual void OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	                          UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep,
@@ -49,6 +55,9 @@ public:
 	                               UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep,
 	                               const FHitResult& SweepResult);
 
+	UFUNCTION()
+	void RestartLevel();
+	
 	
 protected:
 	// Called when the game starts or when spawned
