@@ -21,9 +21,6 @@ public:
 	// Sets default values for this actor's properties
 	ALowerBorder();
 
-	UFUNCTION(BlueprintImplementableEvent)
-	void RestartGame();
-	
 	UFUNCTION()
 	virtual void OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 							  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep,

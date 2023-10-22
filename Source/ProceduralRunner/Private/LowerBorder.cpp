@@ -4,6 +4,7 @@
 #include "ProceduralRunner\Public\LowerBorder.h"
 
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "ProceduralRunner/ProceduralRunnerCharacter.h"
 
 // Sets default values
@@ -27,8 +28,7 @@ void ALowerBorder::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
 	if(Player)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("BorderHIT!"))
-		RestartGame();
+		UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false); //https://forums.unrealengine.com/t/how-to-restart-level-when-player-dies/283235/5
 	}
 }
 

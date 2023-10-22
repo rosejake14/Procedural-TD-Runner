@@ -19,7 +19,8 @@ ATileSpawner::ATileSpawner()
 void ATileSpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	SpawnTile();
+	SpawnTile(); 
+	
 }
 
 // Called every frame
@@ -46,12 +47,20 @@ void ATileSpawner::SpawnTile()
 		TSubclassOf<AActor> Ground = TilesToSpawn[rand()%TilesToSpawn.Num()];
 		AFloor* Temp = static_cast<AFloor*>(GetWorld()->SpawnActor<AActor>(Ground, spawnPos, spawnParameters));
 		Temp->ts = this;
-		
+
+		//AActor* Temp2 = (AActor*)(Temp);
 		SpawnedTiles.Add(Ground);
 		numberOfTilesSpawned++;
+		//DestroyTile();
 	}
 	
 }
+
+void ATileSpawner::DestroyTile()
+{
+	//Destroy(SpawnedTiles[numberOfTilesSpawned - 1]);
+}
+
 
 // //singleton def
 // ATileSpawner* ATileSpawner::Get()

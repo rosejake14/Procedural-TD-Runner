@@ -12,15 +12,13 @@ class PROCEDURALRUNNER_API ATileSpawner : public AActor
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere)
-		int32 numberOfTilesSpawned;
+	
 	//UPROPERTY(EditAnywhere)
 	//	TSubclassOf<AActor> Ground;
 	UPROPERTY(EditAnywhere)
 		TArray<TSubclassOf<AActor>> TilesToSpawn;
 
-	UPROPERTY(EditAnywhere)
-		TArray<TSubclassOf<AActor>> SpawnedTiles;
+	
 
 	
 public:	
@@ -28,9 +26,15 @@ public:
 	ATileSpawner();
 	UFUNCTION(BlueprintCallable)
 		void SpawnTile();
-
 	UFUNCTION(BlueprintCallable)
-	static ATileSpawner* Get();
+		void DestroyTile();
+	UPROPERTY(EditAnywhere)
+		TArray<TSubclassOf<AActor>> SpawnedTiles;
+	UPROPERTY(EditAnywhere)
+		int32 numberOfTilesSpawned;
+
+	//UFUNCTION(BlueprintCallable)
+	//static ATileSpawner* Get();
 
 private:
 	static TSharedPtr<ATileSpawner> STileSpawner;
