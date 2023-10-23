@@ -22,6 +22,9 @@ class AProceduralRunnerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+	UPROPERTY(EditAnywhere, Category = Sounds)
+	USoundBase* BGMusic;
+	
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	USpringArmComponent* CameraBoom;
@@ -42,8 +45,7 @@ class AProceduralRunnerCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
 
-	UPROPERTY(EditAnywhere, Category = Sounds)
-	USoundBase* JumpSound;
+	
 	
 	
 public:

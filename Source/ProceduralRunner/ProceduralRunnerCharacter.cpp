@@ -78,7 +78,10 @@ void AProceduralRunnerCharacter::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
-
+	if(BGMusic)
+	{
+		UGameplayStatics::PlaySound2D(this, BGMusic);
+	}
 	//Add Input Mapping Context
 	if (APlayerController* PlayerController = Cast<APlayerController>(Controller))
 	{
