@@ -1,6 +1,8 @@
 # Procedural-TD-Runner
 Jump, Dodge and Run as you parkour around the progressively generated tiles that spawn ahead of you and try to get a high score!
 
+![runjump](https://github.com/rosejake14/Procedural-TD-Runner/assets/62072145/fb008d22-d39f-41bd-9991-fece44b55fed)
+
 ## Additional Information
 This is a small individual project I am working on to test my knowledge of C++ and to expand what I have learned from academia and external courses. 
 
@@ -28,3 +30,4 @@ For development & testing purposes:
 
 ## Authors
 - Jake Rose - Lead Programmer & Designer
+
