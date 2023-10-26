@@ -63,10 +63,7 @@ AProceduralRunnerCharacter::AProceduralRunnerCharacter()
 void AProceduralRunnerCharacter::AddScore(int score)
 {
 	Score += score;
-	// if(JumpSound)
-	// {
-	// 	UGameplayStatics::PlaySound2D(this,JumpSound);
-	// }
+	
 }
 
 int AProceduralRunnerCharacter::GetScore()
@@ -108,6 +105,8 @@ void AProceduralRunnerCharacter::SetupPlayerInputComponent(UInputComponent* Play
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AProceduralRunnerCharacter::Move);
 
+		//Activating first ability
+		EnhancedInputComponent->BindAction(Special1, ETriggerEvent::Triggered,this,&AProceduralRunnerCharacter::Special1Activate);
 	}
 	else
 	{
@@ -147,4 +146,10 @@ void AProceduralRunnerCharacter::Tick(float DeltaTime)
 	
 }
 
+void AProceduralRunnerCharacter::Special1Activate(const FInputActionValue& Value)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Special 1 Activated!"));
+	int temp = moveSpeed;
+	moveSpeed = 1;
+}
 

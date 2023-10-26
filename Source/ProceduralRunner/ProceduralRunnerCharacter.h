@@ -45,7 +45,8 @@ class AProceduralRunnerCharacter : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* MoveAction;
 
-	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* Special1;
 	
 	
 public:
@@ -68,7 +69,7 @@ protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 
-			
+	void Special1Activate(const FInputActionValue& Value);
 
 protected:
 	// APawn interface
