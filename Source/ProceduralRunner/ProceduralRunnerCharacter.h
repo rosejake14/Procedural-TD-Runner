@@ -49,7 +49,9 @@ class AProceduralRunnerCharacter : public ACharacter
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* Special1;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	UInputAction* Special2;
 	
 public:
 	AProceduralRunnerCharacter();
@@ -71,10 +73,13 @@ protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
 	void Special1Activate(const FInputActionValue& Value);
-
+	void Special2Activate(const FInputActionValue& Value);
+	
 	void slowTime();
-	int tempSpeed;
-	bool special1Active;
+	void superJump();
+	
+	int tempJump;
+	bool specialActive;
 
 protected:
 	// APawn interface

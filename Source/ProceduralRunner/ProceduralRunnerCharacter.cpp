@@ -12,6 +12,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "SNegativeActionButton.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -26,8 +27,7 @@ AProceduralRunnerCharacter::AProceduralRunnerCharacter()
 	spawnyes = true;
 	moveSpeed = 8;
 	Score = 0;
-	special1Active = false;
-	tempSpeed = 0;
+	specialActive = false;
 	
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
@@ -108,8 +108,10 @@ void AProceduralRunnerCharacter::SetupPlayerInputComponent(UInputComponent* Play
 		// Moving
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AProceduralRunnerCharacter::Move);
 
-		//Activating first ability
+		//Activating special abilities
 		EnhancedInputComponent->BindAction(Special1, ETriggerEvent::Triggered,this,&AProceduralRunnerCharacter::Special1Activate);
+
+		EnhancedInputComponent->BindAction(Special2, ETriggerEvent::Triggered,this,&AProceduralRunnerCharacter::Special2Activate);
 	}
 	else
 	{
@@ -151,20 +153,42 @@ void AProceduralRunnerCharacter::Tick(float DeltaTime)
 
 void AProceduralRunnerCharacter::Special1Activate(const FInputActionValue& Value)
 {
-	if(special1Active == false)
+	if(specialActive == false)
 	{
-		special1Active = true;
-
-		tempSpeed = moveSpeed;
+		specialActive = true;
 		moveSpeed -= 5;
 		GetWorldTimerManager().SetTimer(Handle, this, &AProceduralRunnerCharacter::slowTime, 1.0f, true, 2.0f);
 	}
 }
 
+void AProceduralRunnerCharacter::Special2Activate(const FInputActionValue& Value)
+{
+	if(GetCharacterMovement()->IsMovingOnGround()){
+		if(specialActive == false)
+		{
+			specialActive = true;
+			tempJump = GetCharacterMovement()->JumpZVelocity;
+			GetCharacterMovement()->JumpZVelocity += 1000;
+			moveSpeed += 15;
+			GetWorldTimerManager().SetTimer(Handle, this, &AProceduralRunnerCharacter::superJump, 1.0f, true, 3.5f);
+		}
+	}
+}
+
 void AProceduralRunnerCharacter::slowTime()
 {
-	moveSpeed = tempSpeed;
+	UE_LOG(LogTemp, Warning, TEXT("Time Slowed"));
+	moveSpeed += 5;
 	GetWorldTimerManager().ClearTimer(Handle);
-	special1Active = false;
+	specialActive = false;
+}
+
+void AProceduralRunnerCharacter::superJump()
+{
+	UE_LOG(LogTemp, Warning, TEXT("Super Jump!"));
+	GetCharacterMovement()->JumpZVelocity = tempJump;
+	moveSpeed -= 15;
+	GetWorldTimerManager().ClearTimer(Handle);
+	specialActive = false;
 }
 
