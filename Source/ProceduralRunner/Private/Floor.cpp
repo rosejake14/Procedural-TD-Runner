@@ -45,6 +45,7 @@ void AFloor::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 						UGameplayStatics::PlaySound2D(this, levelUpSound);
 					}
 			}
+			
 			Player->moveSpeed += 1;
 			Player->AddScore(1);
 		}

@@ -26,6 +26,8 @@ AProceduralRunnerCharacter::AProceduralRunnerCharacter()
 	spawnyes = true;
 	moveSpeed = 8;
 	Score = 0;
+	special1Active = false;
+	tempSpeed = 0;
 	
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
@@ -62,6 +64,7 @@ AProceduralRunnerCharacter::AProceduralRunnerCharacter()
 
 void AProceduralRunnerCharacter::AddScore(int score)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Score +1"));
 	Score += score;
 	
 }
@@ -148,8 +151,20 @@ void AProceduralRunnerCharacter::Tick(float DeltaTime)
 
 void AProceduralRunnerCharacter::Special1Activate(const FInputActionValue& Value)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Special 1 Activated!"));
-	int temp = moveSpeed;
-	moveSpeed = 1;
+	if(special1Active == false)
+	{
+		special1Active = true;
+
+		tempSpeed = moveSpeed;
+		moveSpeed -= 5;
+		GetWorldTimerManager().SetTimer(Handle, this, &AProceduralRunnerCharacter::slowTime, 1.0f, true, 2.0f);
+	}
+}
+
+void AProceduralRunnerCharacter::slowTime()
+{
+	moveSpeed = tempSpeed;
+	GetWorldTimerManager().ClearTimer(Handle);
+	special1Active = false;
 }
 

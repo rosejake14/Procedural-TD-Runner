@@ -24,6 +24,8 @@ class AProceduralRunnerCharacter : public ACharacter
 
 	UPROPERTY(EditAnywhere, Category = Sounds)
 	USoundBase* BGMusic;
+
+	FTimerHandle Handle;
 	
 	/** Camera boom positioning the camera behind the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
@@ -68,8 +70,11 @@ protected:
 
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
-
 	void Special1Activate(const FInputActionValue& Value);
+
+	void slowTime();
+	int tempSpeed;
+	bool special1Active;
 
 protected:
 	// APawn interface
