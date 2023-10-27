@@ -29,27 +29,27 @@ void ATileSpawner::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void ATileSpawner::SpawnTile()
+void ATileSpawner::SpawnTile() //Spawn 2 random tile's ahead.
 {
-	for(int i = 0; i < 2; i++)
+	for(int i = 0; i < 2; i++) 
 	{
-		FActorSpawnParameters spawnParameters;
+		FActorSpawnParameters spawnParameters; 
 		spawnParameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 		FTransform spawnPos;
 		int32 rX = 0;
-		int32 rZ = 0;
+		int32 rZ = 0; 
 		TSubclassOf<AActor> Ground = TilesToSpawn[0];
 		if(numberOfTilesSpawned!=0)
-		{
-			rX = rand()%1000 - 500;
-			rZ = rand()%400 - 200;
-			Ground = TilesToSpawn[rand()%TilesToSpawn.Num()];
+		{  //Generate random coordinates for new tile to spawn.
+			rX = rand()%1000 - 500;  
+			rZ = rand()%400 - 200; 
+			Ground = TilesToSpawn[rand()%TilesToSpawn.Num()]; //Selects random tile from array.
 		}
-		spawnPos.SetLocation(FVector3d(rX,numberOfTilesSpawned * 2600,rZ));
-		AFloor* Temp = static_cast<AFloor*>(GetWorld()->SpawnActor<AActor>(Ground, spawnPos, spawnParameters));
-		Temp->ts = this;
+		spawnPos.SetLocation(FVector3d(rX,numberOfTilesSpawned * 2600,rZ)); //Assigning spawn position.
+		AFloor* Temp = static_cast<AFloor*>(GetWorld()->SpawnActor<AActor>(Ground, spawnPos, spawnParameters));  //Spawns tile and casts it to a temporary variable.
+		Temp->ts = this;  
 
-		SpawnedTiles.Add(Ground);
+		SpawnedTiles.Add(Ground); 
 		numberOfTilesSpawned++;
 
 	}

@@ -28,7 +28,7 @@ void ALowerBorder::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor
 	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
 	if(Player)
 	{
-		UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false); //https://forums.unrealengine.com/t/how-to-restart-level-when-player-dies/283235/5
+		UGameplayStatics::OpenLevel(this,FName("MainMenu"), false); //https://forums.unrealengine.com/t/how-to-restart-level-when-player-dies/283235/5 FName(*GetWorld()->GetName())
 	}
 }
 

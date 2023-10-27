@@ -151,7 +151,7 @@ void AProceduralRunnerCharacter::Tick(float DeltaTime)
 	
 }
 
-void AProceduralRunnerCharacter::Special1Activate(const FInputActionValue& Value)
+void AProceduralRunnerCharacter::Special1Activate(const FInputActionValue& Value) //Special: Move slower for 2 seconds.
 {
 	if(specialActive == false)
 	{
@@ -161,21 +161,21 @@ void AProceduralRunnerCharacter::Special1Activate(const FInputActionValue& Value
 	}
 }
 
-void AProceduralRunnerCharacter::Special2Activate(const FInputActionValue& Value)
-{
-	if(GetCharacterMovement()->IsMovingOnGround()){
-		if(specialActive == false)
+void AProceduralRunnerCharacter::Special2Activate(const FInputActionValue& Value)  //Special: Single fast, high jump.
+{ 
+	if(GetCharacterMovement()->IsMovingOnGround()){ //if grounded.
+		if(specialActive == false) //Only allow 1 special to be activated at a time.
 		{
 			specialActive = true;
 			tempJump = GetCharacterMovement()->JumpZVelocity;
 			GetCharacterMovement()->JumpZVelocity += 1000;
-			moveSpeed += 15;
-			GetWorldTimerManager().SetTimer(Handle, this, &AProceduralRunnerCharacter::superJump, 1.0f, true, 3.5f);
+			moveSpeed += 15; 
+			GetWorldTimerManager().SetTimer(Handle, this, &AProceduralRunnerCharacter::superJump, 1.0f, true, 3.5f); 
 		}
 	}
 }
 
-void AProceduralRunnerCharacter::slowTime()
+void AProceduralRunnerCharacter::slowTime() //End the special ability for slow speed
 {
 	UE_LOG(LogTemp, Warning, TEXT("Time Slowed"));
 	moveSpeed += 5;
@@ -186,7 +186,7 @@ void AProceduralRunnerCharacter::slowTime()
 void AProceduralRunnerCharacter::superJump()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Super Jump!"));
-	GetCharacterMovement()->JumpZVelocity = tempJump;
+	GetCharacterMovement()->JumpZVelocity = tempJump; //i dont need a temp here but we move
 	moveSpeed -= 15;
 	GetWorldTimerManager().ClearTimer(Handle);
 	specialActive = false;

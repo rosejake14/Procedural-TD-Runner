@@ -35,14 +35,14 @@ void AFloor::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
 	if(Player) //If player is the colliding actor then...
 	{
-		if(Player->spawnyes == true){
-			Player->spawnyes = false;
+		if(Player->spawnyes == true){ 
+			Player->spawnyes = false; 
 			if(ts){
 					//UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *OtherActor->GetName());
 					ts->SpawnTile();
 					if(levelUpSound)
 					{
-						UGameplayStatics::PlaySound2D(this, levelUpSound);
+						UGameplayStatics::PlaySound2D(this, levelUpSound); 
 					}
 			}
 			
@@ -82,7 +82,7 @@ void AFloor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 void AFloor::RestartLevel()
 {
 	GetWorldTimerManager().ClearTimer(Handle);
-	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()), false);
+	UGameplayStatics::OpenLevel(this,FName("MainMenu"), false);
 }
 
 // Called when the game starts or when spawned
