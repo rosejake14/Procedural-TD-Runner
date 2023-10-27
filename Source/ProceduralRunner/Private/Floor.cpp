@@ -43,7 +43,11 @@ void AFloor::OnBoxOverlap(UPrimitiveComponent* OverlappedComponent, AActor* Othe
 					if(levelUpSound)
 					{
 						UGameplayStatics::PlaySound2D(this, levelUpSound); 
+					}else
+					{
+						UE_LOG(LogTemp, Warning, TEXT("Audio: 'levelUpSound' not detected. Ensure uproperty is set."));
 					}
+ 		
 			}
 			
 			Player->moveSpeed += 1;
@@ -56,6 +60,7 @@ void AFloor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 { //Function when player leaves Box Collider
 	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
+	
 	if(Player)
 	{
 		Player->spawnyes = true;
@@ -68,13 +73,18 @@ void AFloor::OnBoxEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* O
  	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool FromSweep, const FHitResult& SweepResult)
  { //On collision with Obstacles, restart level.
  	AProceduralRunnerCharacter* Player = Cast<AProceduralRunnerCharacter>(OtherActor);
+	
  	if(Player)
  	{
+ 		UE_LOG(LogTemp, Warning, TEXT("Actor: %s"), *OtherActor->GetName());
  		if(gameOver)
  		{
  			UGameplayStatics::PlaySound2D(this, gameOver);
  			Player->moveSpeed = -25;
  			GetWorldTimerManager().SetTimer(Handle, this, &AFloor::RestartLevel, 1.0f, true, 1.5f); //Start Timer for 1.5f seconds.
+ 		}else
+ 		{
+ 			UE_LOG(LogTemp, Warning, TEXT("Audio: 'gameOver' not detected. Ensure uproperty is set."));
  		}
  		
  	}
